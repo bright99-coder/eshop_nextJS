@@ -1,0 +1,16 @@
+GET https://pacific-depths-48667.herokuapp.com/api/home
+###
+GET https://pacific-depths-48667.herokuapp.com/api/all-categories
+
+###
+GET https://pacific-depths-48667.herokuapp.com/api/fetch-products/laptop
+###
+GET https://pacific-depths-48667.herokuapp.com/api/product-details/smart-watch/samsung-galaxy-watch5
+
+###
+GET https://pacific-depths-48667.herokuapp.com/api/trending
+
+###
+GET https://pacific-depths-48667.herokuapp.com/api/featured
+
+

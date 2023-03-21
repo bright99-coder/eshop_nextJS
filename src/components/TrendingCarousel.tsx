@@ -2,32 +2,32 @@ import React, { useRef, useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider, { Settings } from "react-slick";
-import Image from "next/image";
 import CardProduct from "./CardProduct";
 import ButtonLeft from "./ButtonLeft";
 import ButtonRight from "./ButtonRight";
-
-interface Image {
-  id: number | string;
-  src: string;
-}
+import { SlEnergy } from "react-icons/sl";
 
 interface ProductCarouselProps {
-  images: Image[];
+  title: string;
+  products: Product[];
 }
 
-const TrendingCarousel: React.FC<ProductCarouselProps> = ({ images }) => {
+const TrendingCarousel: React.FC<ProductCarouselProps> = ({
+  title,
+  products,
+}) => {
   const mainImageRef = useRef<Slider>(null);
 
   useEffect(() => {
     if (mainImageRef.current) {
       mainImageRef.current.slickGoTo(0);
     }
-  }, [images]);
+  }, [products]);
 
   const settings: Settings = {
     arrows: true,
     infinite: true,
+    dots: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
@@ -60,12 +60,18 @@ const TrendingCarousel: React.FC<ProductCarouselProps> = ({ images }) => {
   };
 
   return (
-    <div className="w-full px-5 lg:px-20 my-4 md:my-8 lg:my-10">
-      <Slider ref={mainImageRef} {...settings}>
-        {images?.map((item, index) => (
-          <CardProduct key={item.id} data={item} />
-        ))}
-      </Slider>
+    <div className="px-0 md:px-5 lg:px-20 mt-4 md:mt-8 lg:mt-10">
+      <div className="flex items-center text-2xl font-bold mb-2">
+        <SlEnergy className="mx-2" />
+        {title}
+      </div>
+      <div className="w-full px-5">
+        <Slider ref={mainImageRef} {...settings}>
+          {products?.map((item) => (
+            <CardProduct key={item.id} data={item} />
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 };

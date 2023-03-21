@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Footer />
       </div>
       <div className="fixed w-full bottom-0 md:hidden z-20">
-        <NavMobile/>
+        <NavMobile />
       </div>
     </div>
   );

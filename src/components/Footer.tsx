@@ -42,16 +42,16 @@ export default function Footer() {
         <FooterItem title="Email: bright99.dev@gmail.com" href="/" />
         <FooterItem title="Phone: 0354868289" href="/" />
         <div className="flex">
-          <IconButton className="bg-[#1B212A] text-white">
+          <IconButton className="bg-gray-600 text-white">
             <BsFacebook />
           </IconButton>
-          <IconButton className="bg-[#1B212A] text-white">
+          <IconButton className="bg-gray-600 text-white">
             <AiOutlineInstagram />
           </IconButton>
-          <IconButton className="bg-[#1B212A] text-white">
+          <IconButton className="bg-gray-600 text-white">
             <AiOutlineGoogle />
           </IconButton>
-          <IconButton className="bg-[#1B212A] text-white">
+          <IconButton className="bg-gray-600 text-white">
             <AiFillGithub />
           </IconButton>
         </div>

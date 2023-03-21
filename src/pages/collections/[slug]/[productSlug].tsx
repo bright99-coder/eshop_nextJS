@@ -1,11 +1,18 @@
 import Button from "@/components/Button";
+import { GetStaticPaths, GetStaticPropsContext } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { getCategories } from "@/lib/getCategories";
+import SectionProduct from "@/components/SectionProduct";
 
-export default function ProductDetail() {
+export default function ProductDetail({
+  product,
+  relativeProductOfCategory,
+  relativeProductOfBrand,
+}: any) {
   return (
-    <div className="mb-10">
+    <div>
       <div className="min-h-[48px] bg-primary px-5 md:px-10 lg:px-20 lg:flex items-center">
         <Link className="text-blue-500 underline" href="/collections">
           Collections
@@ -14,29 +21,24 @@ export default function ProductDetail() {
         <Link className="text-blue-500 underline" href="/collections">
           Laptop
         </Link>{" "}
-        /
-        <span>
-          Laptop Dell Gaming G15 5511 i5 11400H/8GB/256GB/4GB
-          RTX3050/120Hz/OfficeHS/Win11
-        </span>
+        /<span>{product.product_name}</span>
       </div>
       <div className="px-5 md:px-10 lg:px-20 mt-4 grid grid-cols-12">
         <div className="col-span-12 lg:col-span-5">
           <Image
-            src="/asus-vivobook-15x-oled-a1503za-i5-l1290w-1-1.jpg"
+            src={`https://pacific-depths-48667.herokuapp.com/${product.image}`}
             width={500}
             height={500}
             className="w-full h-auto"
             alt=""
           />
         </div>
-        <div className="col-span-12 lg:col-span-7">
+        <div className="col-span-12 lg:col-span-7 lg:pl-10">
           <h2 className="text-2xl overflow-hidden text-ellipsis">
-            Laptop Dell Gaming G15 5511 I5 11400H/8GB/256GB/4GB
-            RTX3050/120Hz/OfficeHS/Win11
+            {product.product_name}
           </h2>
           <h4 className="my-4">Brand: Dell</h4>
-          <h3 className="text-2xl text-red-600">1750$</h3>
+          <h3 className="text-2xl text-red-600">{product.selling_price}</h3>
           <div>Stock Available</div>
           <div className="flex justify-start items-center my-4">
             <Button variant="outlined">-</Button>
@@ -49,15 +51,57 @@ export default function ProductDetail() {
             </Button>
             <Button variant="outlined">Add to wishlist</Button>
           </div>
-          <p>
-            Description: Không những mang đến cho người dùng hiệu năng ấn tượng
-            nhờ con chip Intel thế hệ 11 tân tiến, laptop Dell Gaming G15 5511
-            i5 11400H (70266676) còn sở hữu thiết kế thời thượng, lôi cuốn, hứa
-            hẹn sẽ là người cộng sự lý tưởng cùng bạn chinh phục mọi chiến
-            trường.
-          </p>
+          <p>{product.description}</p>
         </div>
       </div>
+      <SectionProduct
+        title={`Relative ${product.brand_name} Product`}
+        data={relativeProductOfBrand}
+      />
+      <SectionProduct
+        title={`Relative ${product.category_name} Product`}
+        data={relativeProductOfCategory}
+      />
     </div>
   );
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const categories = await getCategories();
+  const paths = [];
+  for (const category of categories) {
+    const res = await fetch(
+      `https://pacific-depths-48667.herokuapp.com/api/fetch-products/${category.slug}`
+    );
+    const resJson = await res.json();
+    const productSlugs = resJson.data.products;
+    for (const productSlug of productSlugs) {
+      paths.push({
+        params: {
+          slug: category.slug,
+          productSlug: productSlug.slug,
+        },
+      });
+    }
+  }
+  return { paths, fallback: false };
+};
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const slug = context.params?.slug;
+  const productSlug = context.params?.productSlug;
+  const res = await fetch(
+    `https://pacific-depths-48667.herokuapp.com/api/product-details/${slug}/${productSlug}`
+  );
+  const resJson = await res.json();
+  const product = resJson.data.product;
+  const relativeProductOfCategory = resJson.data.relativeProductOfCategory;
+  const relativeProductOfBrand = resJson.data.relativeProductOfBrand;
+  return {
+    props: {
+      product: product[0].product,
+      relativeProductOfCategory,
+      relativeProductOfBrand,
+    },
+  };
 }
