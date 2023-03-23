@@ -41,7 +41,7 @@ const HomeCarousel: React.FC<ProductCarouselProps> = ({ banners }) => {
       {banners.map(({ id, image, title }) => (
         <div key={id}>
           <Image
-            src={`https://pacific-depths-48667.herokuapp.com/${image}`}
+            src={`${process.env.NEXT_PUBLIC_DOMAIN}/${image}`}
             width={1000}
             height={500}
             className="w-full max-h-[500px] overflow-hidden"

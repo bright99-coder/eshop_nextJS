@@ -21,7 +21,7 @@ export default function index({ categories }: Props) {
         {categories.map(({ slug, category_name, image }) => (
           <Link href={`/collections/${slug}`} key={category_name} className="border border-gray-100 shadow-sm rounded-md hover:bg-gray-50 transition">
             <Image
-              src={`https://pacific-depths-48667.herokuapp.com/${image}`}
+              src={`${process.env.NEXT_PUBLIC_DOMAIN}/${image}`}
               width={400}
               height={400}
               className="object-contain w-full"

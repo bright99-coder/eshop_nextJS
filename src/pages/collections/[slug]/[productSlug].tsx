@@ -26,7 +26,7 @@ export default function ProductDetail({
       <div className="px-5 md:px-10 lg:px-20 mt-4 grid grid-cols-12">
         <div className="col-span-12 lg:col-span-5">
           <Image
-            src={`https://pacific-depths-48667.herokuapp.com/${product.image}`}
+            src={`${process.env.NEXT_PUBLIC_DOMAIN}/${product.image}`}
             width={500}
             height={500}
             className="w-full h-auto"
@@ -71,7 +71,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = [];
   for (const category of categories) {
     const res = await fetch(
-      `https://pacific-depths-48667.herokuapp.com/api/fetch-products/${category.slug}`
+      `${process.env.NEXT_PUBLIC_DOMAIN}/${category.slug}`
     );
     const resJson = await res.json();
     const productSlugs = resJson.data.products;
@@ -91,7 +91,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const slug = context.params?.slug;
   const productSlug = context.params?.productSlug;
   const res = await fetch(
-    `https://pacific-depths-48667.herokuapp.com/api/product-details/${slug}/${productSlug}`
+    `${process.env.NEXT_PUBLIC_DOMAIN}/${slug}/${productSlug}`
   );
   const resJson = await res.json();
   const product = resJson.data.product;

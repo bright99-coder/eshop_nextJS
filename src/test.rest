@@ -13,4 +13,7 @@ GET https://pacific-depths-48667.herokuapp.com/api/trending
 ###
 GET https://pacific-depths-48667.herokuapp.com/api/featured
 
+###
+GET https://pacific-depths-48667.herokuapp.com/api/profile
+
 

@@ -15,7 +15,7 @@ export default function CardProduct({ data, compareIcon, ...props }: any) {
     >
       <Link href={`/collections/${data.category.slug}/${data.slug}`}>
         <Image
-          src={`https://pacific-depths-48667.herokuapp.com/${data.image}`}
+          src={`${process.env.NEXT_PUBLIC_DOMAIN}/${data.image}`}
           width={400}
           height={185}
           alt=""
