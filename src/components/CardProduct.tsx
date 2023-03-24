@@ -1,13 +1,72 @@
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillEye } from "react-icons/ai";
 import { MdAdd } from "react-icons/md";
+import swal from "sweetalert";
 import Button from "./Button";
-import IconButton from "./IconButton";
 
 export default function CardProduct({ data, compareIcon, ...props }: any) {
+  const [quantity, setQuantity] = useState(1);
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity((prevCount) => prevCount - 1);
+    }
+  };
+  const handleIncrement = () => {
+    if (quantity < 10) {
+      setQuantity((prevCount) => prevCount + 1);
+    }
+  };
+
+  const submitAddtoWishList = (product: any) => {
+    const data = {
+      product_id: product.id,
+    };
+
+    axios.post(`/api/add-to-wishlist`, data).then((res) => {
+      if (res.data.status === 201) {
+        //Created - Data Inserted
+        swal("Success", res.data.message, "success");
+      } else if (res.data.status === 409) {
+        //Already added to cart
+        swal("Success", res.data.message, "success");
+      } else if (res.data.status === 401) {
+        //Unauthenticated
+        swal("Error", res.data.message, "warning");
+      } else if (res.data.status === 404) {
+        //Not Found
+        swal("Warning", res.data.message, "error");
+      }
+    });
+  };
+
+  const submitAddtocart = (product: any) => {
+    const data = {
+      product_id: product.id,
+      product_color_name: "",
+      product_quantity: quantity,
+    };
+
+    axios.post(`/api/add-to-cart`, data).then((res) => {
+      if (res.data.status === 201) {
+        //Created - Data Inserted
+        swal("Success", res.data.message, "success");
+      } else if (res.data.status === 409) {
+        //Already added to cart
+        swal("Success", res.data.message, "success");
+      } else if (res.data.status === 401) {
+        //Unauthenticated
+        swal("Error", res.data.message, "warning");
+      } else if (res.data.status === 404) {
+        //Not Found
+        swal("Warning", res.data.message, "error");
+      }
+    });
+  };
   return (
     <div
       {...props}
@@ -37,15 +96,24 @@ export default function CardProduct({ data, compareIcon, ...props }: any) {
         </div>
         <div className="flex justify-between mt-5">
           <div className="flex ">
-            <IconButton className="ml-0 text-red-700 text-2xl bg-transparent hover:bg-primary">
+            <button
+              className="text-red-700 text-2xl hover:bg-primary p-2 rounded-full"
+              onClick={() => submitAddtoWishList(data)}
+            >
               <AiOutlineHeart />
-            </IconButton>
-            <IconButton className="text-red-700 text-2xl bg-transparent hover:bg-primary">
+            </button>
+            <button
+              className="text-red-700 text-2xl hover:bg-primary p-2 rounded-full"
+            >
               <AiFillEye />
-            </IconButton>
+            </button>
           </div>
           <div>
-            <Button variant="outlined" className="px-7 py-2">
+            <Button
+              variant="outlined"
+              className="px-7 py-2"
+              onClick={() => submitAddtocart(data)}
+            >
               <MdAdd className="text-blue-700" />
             </Button>
           </div>

@@ -71,7 +71,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = [];
   for (const category of categories) {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_DOMAIN}/${category.slug}`
+      `${process.env.NEXT_PUBLIC_DOMAIN}/api/fetch-products/${category.slug}`
     );
     const resJson = await res.json();
     const productSlugs = resJson.data.products;
@@ -91,7 +91,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const slug = context.params?.slug;
   const productSlug = context.params?.productSlug;
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_DOMAIN}/${slug}/${productSlug}`
+    `${process.env.NEXT_PUBLIC_DOMAIN}/api/product-details/${slug}/${productSlug}`
   );
   const resJson = await res.json();
   const product = resJson.data.product;
