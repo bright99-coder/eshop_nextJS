@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider, { Settings } from "react-slick";
 import Image from "next/image";
 
-const HomeCarousel: React.FC<ProductCarouselProps> = ({ banners }) => {
+const HomeCarousel: React.FC<HomeCarousel> = ({ banners }) => {
   const mainImageRef = useRef<Slider>(null);
 
   useEffect(() => {

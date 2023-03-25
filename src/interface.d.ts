@@ -40,19 +40,16 @@ interface NavbarItem {
   title: string;
   href: string;
 }
-
-interface ProductCarouselProps {
-  title: string;
-  products: Product[];
-}
-
 interface SectionProduct {
   title?: string;
   data: Product[];
   className?: string;
 }
-
-interface ProductCarouselProps {
+interface TrendingCarousel {
+  title: string;
+  products: Product[];
+}
+interface HomeCarousel {
   banners: Banner[];
 }
 

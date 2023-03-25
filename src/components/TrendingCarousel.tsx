@@ -7,7 +7,7 @@ import ButtonLeft from "./ButtonLeft";
 import ButtonRight from "./ButtonRight";
 import { SlEnergy } from "react-icons/sl";
 
-const TrendingCarousel: React.FC<ProductCarouselProps> = ({
+const TrendingCarousel: React.FC<TrendingCarousel> = ({
   title,
   products,
 }) => {
