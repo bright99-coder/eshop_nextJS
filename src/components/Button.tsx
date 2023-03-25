@@ -1,5 +1,4 @@
 import Link from "next/link";
-import React from "react";
 
 export default function Button({
   variant,
@@ -8,7 +7,7 @@ export default function Button({
   icons,
   href,
   ...props
-}: any) {
+}: Button) {
   switch (variant) {
     case "contained":
       return (
@@ -52,6 +51,6 @@ export default function Button({
         );
       }
     default:
-      return null;
+      return <button>{children}</button>;
   }
 }

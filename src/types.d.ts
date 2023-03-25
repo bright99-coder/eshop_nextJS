@@ -74,3 +74,31 @@ type CartItem = {
   created_at: any;
   updated_at: any;
 };
+
+type OrderItem = {
+  id: number;
+  user_id: number;
+  tracking_no: string;
+  email: string;
+  fullname: string;
+  phone: string;
+  pincode: string;
+  address: string;
+  payment_id: string | null;
+  payment_mode: string;
+  status_message: string;
+  created_at: any;
+  updated_at: any;
+};
+
+type OrderItemDetail = {
+  product: Product;
+  id: number;
+  order_id: number;
+  price: number;
+  product_color_name: string | null;
+  product_id: number;
+  quantity: number;
+  updated_at: any;
+};
+

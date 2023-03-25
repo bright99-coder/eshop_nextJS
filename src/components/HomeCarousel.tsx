@@ -3,12 +3,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider, { Settings } from "react-slick";
 import Image from "next/image";
-import ButtonLeft from './ButtonLeft';
-import ButtonRight from './ButtonRight';
-
-interface ProductCarouselProps {
-  banners: Banner[];
-}
 
 const HomeCarousel: React.FC<ProductCarouselProps> = ({ banners }) => {
   const mainImageRef = useRef<Slider>(null);

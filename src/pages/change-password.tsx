@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import Button from "@/components/Button";
-import FormInput from "@/components/FormInput";
-import Link from "next/link";
-import { SlEnergy } from "react-icons/sl";
+import TextField from "@/components/TextField";
 import axios from "axios";
 import swal from "sweetalert";
+import HeaderLabel from "@/components/HeaderLabel";
 
 export default function ChangePassword() {
   const [input, setInput] = useState({
@@ -37,37 +36,33 @@ export default function ChangePassword() {
       className="w-full md:w-2/4 px-5 md:px-10 lg:px-24 mx-auto my-10"
       onSubmit={handleSubmit}
     >
-      <div className="flex justify-between items-center my-4">
-        <div className="flex items-center font-bold text-2xl select-none">
-          <SlEnergy className="mr-2" />
-          Change Password
-        </div>
-        <Link href="/profile">
-          <Button variant="contained">Back</Button>
-        </Link>
-      </div>
+      <HeaderLabel
+        title="Change Password"
+        contentButton="Back"
+        href="/profile"
+      />
       <div className="grid grid-cols-1 gap-4">
-        <FormInput
+        <TextField
           name="current_password"
           value={input.current_password}
           onChange={handleInput}
-          size="small"
+          variant="small"
           label="Current Password"
           type="password"
         />
-        <FormInput
+        <TextField
           name="password"
           value={input.password}
           onChange={handleInput}
-          size="small"
+          variant="small"
           label="New Password"
           type="password"
         />
-        <FormInput
+        <TextField
           name="password_confirmation"
           value={input.password_confirmation}
           onChange={handleInput}
-          size="small"
+          variant="small"
           label="Confirm Password"
           type="password"
         />

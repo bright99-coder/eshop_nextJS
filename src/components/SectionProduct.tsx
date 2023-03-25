@@ -1,16 +1,15 @@
 import React from "react";
 import CardProduct from "./CardProduct";
 import { SlEnergy } from "react-icons/sl";
+import Grid from "./Grid";
 
-interface ProductProps {
-  title?: string;
-  data: any[];
-  className?: string;
-}
-
-const SectionProduct: React.FC<ProductProps> = ({ title, data, className }) => {
+const SectionProduct: React.FC<SectionProduct> = ({
+  title,
+  data,
+  className,
+}) => {
   return (
-    <div className={`px-5 md:px-10 lg:px-20 py-5 lg:py-10 ${className}`}>
+    <Grid variant="primary" className={`${className}`}>
       {title && (
         <div className="flex items-center text-2xl font-bold mb-2">
           <SlEnergy className="mr-2" />
@@ -24,7 +23,7 @@ const SectionProduct: React.FC<ProductProps> = ({ title, data, className }) => {
           </div>
         ))}
       </div>
-    </div>
+    </Grid>
   );
 };
 

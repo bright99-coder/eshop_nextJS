@@ -7,11 +7,6 @@ import ButtonLeft from "./ButtonLeft";
 import ButtonRight from "./ButtonRight";
 import { SlEnergy } from "react-icons/sl";
 
-interface ProductCarouselProps {
-  title: string;
-  products: Product[];
-}
-
 const TrendingCarousel: React.FC<ProductCarouselProps> = ({
   title,
   products,

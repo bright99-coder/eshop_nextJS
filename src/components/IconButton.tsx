@@ -6,7 +6,7 @@ export default function IconButton({
   className,
   href,
   ...props
-}: any) {
+}: IconButton) {
   if (href) {
     return (
       <Link

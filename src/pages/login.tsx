@@ -1,11 +1,10 @@
 import Button from "@/components/Button";
-import FormInput from "@/components/FormInput";
+import TextField from "@/components/TextField";
 import IconButton from "@/components/IconButton";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import React from "react";
 import { TbLockSquareRoundedFilled } from "react-icons/tb";
-import { useRouter } from "next/router";
 
 export default function Login() {
   const { login } = useAuth();
@@ -28,17 +27,18 @@ export default function Login() {
         </IconButton>
         <h4 className="text-2xl">Sign in</h4>
       </div>
-      <FormInput
+      <TextField
         name="username"
         required
-        size="large"
+        variant="large"
         label="Email Adress *"
         type="email"
+        autoFocus
       />
-      <FormInput
+      <TextField
         name="password"
         required
-        size="large"
+        variant="large"
         label="Password *"
         type="password"
         className="my-4"

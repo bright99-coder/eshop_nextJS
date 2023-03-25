@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Button from "@/components/Button";
-import FormInput from "@/components/FormInput";
-import Link from "next/link";
-import { SlEnergy } from "react-icons/sl";
+import TextField from "@/components/TextField";
 import axios from "axios";
+import HeaderLabel from "@/components/HeaderLabel";
+import TextArea from "@/components/TextArea";
 
 export default function Profile({ data }: any) {
   const [input, setInput] = useState<any>({});
@@ -48,60 +48,54 @@ export default function Profile({ data }: any) {
       className="w-full md:w-2/4 mx-auto px-5 md:px-0 my-10"
       onSubmit={handleUpdate}
     >
-      <div className="flex justify-between items-center my-4">
-        <div className="flex items-center font-bold text-2xl select-none">
-          <SlEnergy className="mr-2" />
-          Profile
-        </div>
-        <Link href="/change-password">
-          <Button variant="contained">Change password</Button>
-        </Link>
-      </div>
+      <HeaderLabel
+        title="Profile"
+        contentButton="Change password"
+        href="/change-password"
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <FormInput
+        <TextField
           value={input.name ?? " "}
           onChange={handleInput}
           name="name"
-          size="small"
           label="User Name"
           type="text"
+          variant="small"
         />
-        <FormInput
+        <TextField
           value={input.email ?? " "}
           onChange={handleInput}
+          className="bg-gray-100 pointer-events-none"
           name="email"
-          size="small"
+          variant="small"
           label="Email"
           type="email"
           disabled
         />
-        <FormInput
+        <TextField
           value={input.phone ?? " "}
           onChange={handleInput}
           name="phone"
-          size="small"
+          variant="small"
           label="Phone Number"
           type="text"
         />
-        <FormInput
+        <TextField
           value={input.pin_code ?? " "}
           onChange={handleInput}
           name="pin_code"
-          size="small"
+          variant="small"
           label="Zip/Pin Code"
           type="text"
         />
       </div>
-      <FormInput
+      <TextArea
         value={input.address ?? " "}
         onChange={handleInput}
         name="address"
-        textarea
-        size="large"
         label="Address"
         className="mt-4"
-        cols={2}
-        rows={3}
+        variant="small"
       />
       <Button type="submit" className="mt-4" variant="contained">
         Save data
