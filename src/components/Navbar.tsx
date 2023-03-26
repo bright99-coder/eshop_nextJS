@@ -6,26 +6,24 @@ import { FiLogIn } from "react-icons/fi";
 import NavbarItem from "./NavbarItem";
 import Link from "next/link";
 import SearchWrapper from "./SearchWrapper";
-import { useAuth } from "@/context/AuthContext";
 import { CiUser } from "react-icons/ci";
 import Button from "./Button";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { FaJediOrder } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useRef, useState } from "react";
-import { useClickOutside } from "@/hooks/useClickOutside";
+import { useShoppingCart } from "@/context/ShoppingCartContext";
+import { useAuth } from "@/context/AuthContext";
+import useClickOutside from "@/hooks/useClickOutside";
 
 export default function Navbar() {
-  const { logged, logout } = useAuth();
-  const [openProfile, setOpenProfile] = useState(false);
-  const profileRef = useRef(null);
-  const handleToggleOpen = () => setOpenProfile(!openProfile);
-  const handleClose = () => setOpenProfile(false);
-  // useClickOutside(profileRef, handleClose);
+  const { user, logout } = useAuth();
+  const { cartQuantity } = useShoppingCart();
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
-  const handleLogout = () => {
-    logout();
-  };
+  // const handleClickOutside = () => setIsOpen(false);
+  // useClickOutside(ref, handleClickOutside);
 
   return (
     <div className="px-5 md:px-10 lg:px-20 flex flex-col">
@@ -38,17 +36,20 @@ export default function Navbar() {
           <IconButton href="/wishlist">
             <AiOutlineHeart />
           </IconButton>
-          <IconButton href="/cart">
+          <IconButton href="/cart" className="relative">
             <BsHandbag />
+            <span className="absolute -right-1 top-0 bg-orange-500 text-white text-xs w-5 h-5 flex justify-center items-center rounded-full">
+              {cartQuantity}
+            </span>
           </IconButton>
-          {logged ? (
+          {user != null ? (
             <div className="relative">
-              <div ref={profileRef} onClick={handleToggleOpen}>
+              <div ref={ref} onClick={() => setIsOpen(!isOpen)}>
                 <IconButton>
                   <CiUser />
                 </IconButton>
               </div>
-              {openProfile && (
+              {isOpen && (
                 <div className="bg-white rounded-md absolute top-full border border-gray-200 right-0 shadow mt-3 flex flex-col z-20">
                   <Button
                     href="/profile"
@@ -67,7 +68,7 @@ export default function Navbar() {
                   <Button
                     variant="startIcon"
                     icons={<IoLogOutOutline />}
-                    onClick={handleLogout}
+                    onClick={() => logout()}
                   >
                     Logout
                   </Button>

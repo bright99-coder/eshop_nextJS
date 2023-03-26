@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Button from "@/components/Button";
 import TextField from "@/components/TextField";
 import axios from "axios";
 import HeaderLabel from "@/components/HeaderLabel";
 import TextArea from "@/components/TextArea";
+import { useAuth } from "@/context/AuthContext";
+import swal from "sweetalert";
 
-export default function Profile({ data }: any) {
-  const [input, setInput] = useState<any>({});
+export default function Profile() {
+  const { user, setUser } = useAuth();
   useEffect(() => {
     let isMounted = true;
     document.title = "My Profile";
     axios.get(`/api/profile`).then((res) => {
       if (isMounted) {
         if (res.status === 200) {
-          console.log(res.data.myProfile);
-          setInput(res.data.myProfile);
+          setUser(res.data.myProfile);
         }
       }
     });
@@ -24,21 +25,23 @@ export default function Profile({ data }: any) {
   }, []);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const handleUpdate = (e: any) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("name", input.name);
-    formData.append("phone", input.phone);
-    formData.append("pin_code", input.pin_code);
-    formData.append("address", input.address);
+    formData.append("name", user?.name ?? "");
+    formData.append("phone", user?.phone ?? "");
+    formData.append("pin_code", user?.pin_code ?? "");
+    formData.append("address", user?.address ?? "");
     axios.post(`/api/profile`, formData).then((res) => {
       if (res.data.status === 200) {
-        alert("Update Success");
+        swal("Success", res.data.message, "success");
       } else if (res.data.status === 422) {
+        swal("All Fields are mandetory", "", "error");
       } else if (res.data.status === 404) {
+        swal("Error", res.data.message, "error");
       }
     });
   };
@@ -55,7 +58,7 @@ export default function Profile({ data }: any) {
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <TextField
-          value={input.name ?? " "}
+          value={user?.name}
           onChange={handleInput}
           name="name"
           label="User Name"
@@ -63,7 +66,7 @@ export default function Profile({ data }: any) {
           variant="small"
         />
         <TextField
-          value={input.email ?? " "}
+          value={user?.email}
           onChange={handleInput}
           className="bg-gray-100 pointer-events-none"
           name="email"
@@ -73,7 +76,7 @@ export default function Profile({ data }: any) {
           disabled
         />
         <TextField
-          value={input.phone ?? " "}
+          value={user?.phone}
           onChange={handleInput}
           name="phone"
           variant="small"
@@ -81,7 +84,7 @@ export default function Profile({ data }: any) {
           type="text"
         />
         <TextField
-          value={input.pin_code ?? " "}
+          value={user?.pin_code}
           onChange={handleInput}
           name="pin_code"
           variant="small"
@@ -90,7 +93,7 @@ export default function Profile({ data }: any) {
         />
       </div>
       <TextArea
-        value={input.address ?? " "}
+        value={user?.address}
         onChange={handleInput}
         name="address"
         label="Address"

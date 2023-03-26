@@ -10,6 +10,7 @@ type ShoppingCartProviderProps = {
 type ShoppingCartContext = {
   totalPrice: number;
   cartItems: CartItem[];
+  cartQuantity: number;
   setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
   handleIncrement: (id: number) => void;
   handleDecrement: (id: number) => void;
@@ -85,6 +86,11 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     setTotalPrice(total);
   };
 
+  const cartQuantity = cartItems.reduce(
+    (quantity, item) => item.product_quantity + quantity,
+    0
+  );
+
   React.useEffect(() => {
     updateTotalPrice(cartItems);
   }, [cartItems]);
@@ -94,6 +100,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
       value={{
         totalPrice,
         cartItems,
+        cartQuantity,
         setCartItems,
         handleIncrement,
         handleDecrement,

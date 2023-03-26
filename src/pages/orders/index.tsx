@@ -5,31 +5,32 @@ import OrderItem, {
   OrderItemMobile,
 } from "@/components/OrderItem";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useOrderContext } from "./../../context/OrderContext";
 
 export default function Orders() {
-  const [orders, setOrders] = useState<OrderItem[]>([]);
+  const { orderItems, setOrderItems } = useOrderContext();
 
   useEffect(() => {
     let isMounted = true;
     axios.get(`/api/orders`).then((res) => {
       if (isMounted) {
         if (res.status === 200) {
-          setOrders(res.data.orders);
+          setOrderItems(res.data.orders);
         }
       }
     });
     return () => {
       isMounted = false;
     };
-  }, [setOrders]);
+  }, [setOrderItems]);
 
   return (
     <Grid variant="primary">
       <HeaderLabel title="My Orders" contentButton="Back" href="/" />
       <HeaderOrder />
-      {orders.length > 0 ? (
-        orders.map((order) => {
+      {orderItems.length > 0 ? (
+        orderItems.map((order) => {
           return (
             <div key={order.id}>
               <OrderItem order={order} />

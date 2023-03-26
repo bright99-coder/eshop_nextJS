@@ -1,3 +1,14 @@
+type User = {
+  name: string;
+  email: string;
+  password: string;
+  googleId: string;
+  phone: string;
+  pin_code: string;
+  address: string;
+  role_as: string;
+};
+
 type Category = {
   category_name: string;
   slug: string;
@@ -101,4 +112,3 @@ type OrderItemDetail = {
   quantity: number;
   updated_at: any;
 };
-

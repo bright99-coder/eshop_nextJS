@@ -1,10 +1,10 @@
 import Button from "@/components/Button";
 import TextField from "@/components/TextField";
 import IconButton from "@/components/IconButton";
-import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import React from "react";
 import { TbLockSquareRoundedFilled } from "react-icons/tb";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Login() {
   const { login } = useAuth();

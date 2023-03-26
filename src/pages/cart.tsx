@@ -19,7 +19,7 @@ export default function Cart() {
 
   useEffect(() => {
     let isMounted = true;
-    if (!sessionStorage.getItem("auth_token")) {
+    if (!localStorage.getItem("auth_token")) {
       router.push("/login");
       swal("Warning", "Login to goto Cart Page", "warning");
     }
