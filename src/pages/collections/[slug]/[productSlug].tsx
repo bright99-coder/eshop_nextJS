@@ -2,15 +2,56 @@ import Button from "@/components/Button";
 import { GetStaticPaths, GetStaticPropsContext } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { getCategories } from "@/lib/getCategories";
 import SectionProduct from "@/components/SectionProduct";
+import { useShoppingCart } from "@/context/ShoppingCartContext";
+import axios from "axios";
+import swal from "sweetalert";
 
 export default function ProductDetail({
   product,
   relativeProductOfCategory,
   relativeProductOfBrand,
 }: any) {
+  const { addToWishList } = useShoppingCart();
+  const [quantity, setQuantity] = useState(1);
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity((prevCount) => prevCount - 1);
+    }
+  };
+  const handleIncrement = () => {
+    if (quantity < 10) {
+      setQuantity((prevCount) => prevCount + 1);
+    }
+  };
+
+  const addToCart = (e: any) => {
+    const data = {
+      product_id: product.id,
+      product_color_name: "",
+      product_quantity: quantity,
+    };
+
+    axios.post(`/api/add-to-cart`, data).then((res) => {
+      if (res.data.status === 201) {
+        //Created - Data Inserted
+        swal("Success", res.data.message, "success");
+      } else if (res.data.status === 409) {
+        //Already added to cart
+        swal("Success", res.data.message, "success");
+      } else if (res.data.status === 401) {
+        //Unauthenticated
+        swal("Error", res.data.message, "warning");
+      } else if (res.data.status === 404) {
+        //Not Found
+        swal("Warning", res.data.message, "error");
+      }
+    });
+  };
+
   return (
     <div>
       <div className="min-h-[48px] bg-primary px-5 md:px-10 lg:px-20 lg:flex items-center">
@@ -38,18 +79,28 @@ export default function ProductDetail({
             {product.product_name}
           </h2>
           <h4 className="my-4">Brand: Dell</h4>
-          <h3 className="text-2xl text-red-600">{product.selling_price}</h3>
+          <h3 className="text-2xl text-red-600">{product.selling_price}$</h3>
           <div>Stock Available</div>
           <div className="flex justify-start items-center my-4">
-            <Button variant="outlined">-</Button>
-            <Button variant="outlined">1</Button>
-            <Button variant="outlined">+</Button>
+            <Button variant="outlined" onClick={handleDecrement}>
+              -
+            </Button>
+            <Button variant="outlined">{quantity}</Button>
+            <Button variant="outlined" onClick={handleIncrement}>
+              +
+            </Button>
           </div>
           <div className="flex mb-4">
-            <Button className="mr-4" variant="contained">
+            <Button
+              className="mr-4"
+              variant="contained"
+              onClick={() => addToCart(product)}
+            >
               Add to cart
             </Button>
-            <Button variant="outlined">Add to wishlist</Button>
+            <Button variant="outlined" onClick={() => addToWishList(product)}>
+              Add to wishlist
+            </Button>
           </div>
           <p>{product.description}</p>
         </div>

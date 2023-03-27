@@ -12,21 +12,21 @@ import CartItem, {
   HeaderCart,
   TableRow,
 } from "@/components/CartItem";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Cart() {
   const router = useRouter();
+  const { user } = useAuth();
   const { totalPrice, cartItems, setCartItems } = useShoppingCart();
 
   useEffect(() => {
     let isMounted = true;
-    if (!localStorage.getItem("auth_token")) {
-      router.push("/login");
-      swal("Warning", "Login to goto Cart Page", "warning");
-    }
     axios.get(`/api/cart`).then((res) => {
       if (isMounted) {
         if (res.data.status === 200) {
           setCartItems(res.data.cart);
+          console.log(cartItems);
+          localStorage.setItem("shopping_cart", JSON.stringify(res.data.cart));
         } else if (res.data.status === 401) {
           router.push("/login");
           swal("Warning", res.data.message, "error");
@@ -36,8 +36,16 @@ export default function Cart() {
     return () => {
       isMounted = false;
     };
-  }, [router, setCartItems]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  if (!user) {
+    if (typeof window !== "undefined") {
+      swal("Warning", "Login to goto Cart Page", "warning");
+      router.push("/login");
+      return null;
+    }
+  }
   return (
     <>
       {cartItems.length > 0 && (

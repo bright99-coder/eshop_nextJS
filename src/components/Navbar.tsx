@@ -12,13 +12,11 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 import { FaJediOrder } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useRef, useState } from "react";
-import { useShoppingCart } from "@/context/ShoppingCartContext";
 import { useAuth } from "@/context/AuthContext";
 import useClickOutside from "@/hooks/useClickOutside";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
-  const { cartQuantity } = useShoppingCart();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -38,11 +36,8 @@ export default function Navbar() {
           </IconButton>
           <IconButton href="/cart" className="relative">
             <BsHandbag />
-            <span className="absolute -right-1 top-0 bg-orange-500 text-white text-xs w-5 h-5 flex justify-center items-center rounded-full">
-              {cartQuantity}
-            </span>
           </IconButton>
-          {user != null ? (
+          {user ? (
             <div className="relative">
               <div ref={ref} onClick={() => setIsOpen(!isOpen)}>
                 <IconButton>

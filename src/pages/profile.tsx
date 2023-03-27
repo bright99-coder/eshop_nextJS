@@ -6,9 +6,12 @@ import HeaderLabel from "@/components/HeaderLabel";
 import TextArea from "@/components/TextArea";
 import { useAuth } from "@/context/AuthContext";
 import swal from "sweetalert";
+import { useRouter } from "next/router";
 
 export default function Profile() {
   const { user, setUser } = useAuth();
+  const router = useRouter();
+
   useEffect(() => {
     let isMounted = true;
     document.title = "My Profile";
@@ -16,12 +19,14 @@ export default function Profile() {
       if (isMounted) {
         if (res.status === 200) {
           setUser(res.data.myProfile);
+          console.log(user);
         }
       }
     });
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +51,13 @@ export default function Profile() {
     });
   };
 
+  if (!user) {
+    if (typeof window !== "undefined") {
+      swal("Warning", "Login to goto Profile Page", "warning");
+      router.push("/login");
+      return null;
+    }
+  }
   return (
     <form
       className="w-full md:w-2/4 mx-auto px-5 md:px-0 my-10"

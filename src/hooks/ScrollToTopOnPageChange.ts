@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-function ScrollToTopOnPageChange() {
+function ScrollToTopOnNavigation() {
   const router = useRouter();
 
   useEffect(() => {
@@ -19,4 +19,4 @@ function ScrollToTopOnPageChange() {
   return null;
 }
 
-export default ScrollToTopOnPageChange;
+export default ScrollToTopOnNavigation;

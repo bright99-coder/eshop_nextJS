@@ -4,15 +4,21 @@ import OrderItem, {
   HeaderOrder,
   OrderItemMobile,
 } from "@/components/OrderItem";
+import { useAuth } from "@/context/AuthContext";
 import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
+import swal from "sweetalert";
 import { useOrderContext } from "./../../context/OrderContext";
 
 export default function Orders() {
   const { orderItems, setOrderItems } = useOrderContext();
+  const { user } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     let isMounted = true;
+    document.title = "Orders";
     axios.get(`/api/orders`).then((res) => {
       if (isMounted) {
         if (res.status === 200) {
@@ -25,6 +31,13 @@ export default function Orders() {
     };
   }, [setOrderItems]);
 
+  if (!user) {
+    if (typeof window !== "undefined") {
+      swal("Warning", "Login to Order Page", "warning");
+      router.push("/login");
+      return null;
+    }
+  }
   return (
     <Grid variant="primary">
       <HeaderLabel title="My Orders" contentButton="Back" href="/" />
