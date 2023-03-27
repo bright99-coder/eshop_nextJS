@@ -20,8 +20,8 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  // const handleClickOutside = () => setIsOpen(false);
-  // useClickOutside(ref, handleClickOutside);
+  const handleClickOutside = () => setIsOpen(false);
+  useClickOutside(ref, handleClickOutside);
 
   return (
     <div className="px-5 md:px-10 lg:px-20 flex flex-col">
@@ -29,7 +29,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-end text-2xl text-blue-600">
           ECOMERCE
         </Link>
-        <SearchWrapper className="relative w-full md:w-2/4 h-searchWrapper max-w-lg hidden md:block" />
+        <SearchWrapper className="hidden md:block" />
         <div className="flex">
           <IconButton href="/wishlist">
             <AiOutlineHeart />

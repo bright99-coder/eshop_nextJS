@@ -14,7 +14,7 @@ export default function ProductDetail({
   relativeProductOfCategory,
   relativeProductOfBrand,
 }: any) {
-  const { addToWishList } = useShoppingCart();
+  const { addToWishList, addToCart } = useShoppingCart();
   const [quantity, setQuantity] = useState(1);
 
   const handleDecrement = () => {
@@ -26,30 +26,6 @@ export default function ProductDetail({
     if (quantity < 10) {
       setQuantity((prevCount) => prevCount + 1);
     }
-  };
-
-  const addToCart = (e: any) => {
-    const data = {
-      product_id: product.id,
-      product_color_name: "",
-      product_quantity: quantity,
-    };
-
-    axios.post(`/api/add-to-cart`, data).then((res) => {
-      if (res.data.status === 201) {
-        //Created - Data Inserted
-        swal("Success", res.data.message, "success");
-      } else if (res.data.status === 409) {
-        //Already added to cart
-        swal("Success", res.data.message, "success");
-      } else if (res.data.status === 401) {
-        //Unauthenticated
-        swal("Error", res.data.message, "warning");
-      } else if (res.data.status === 404) {
-        //Not Found
-        swal("Warning", res.data.message, "error");
-      }
-    });
   };
 
   return (
@@ -94,7 +70,7 @@ export default function ProductDetail({
             <Button
               className="mr-4"
               variant="contained"
-              onClick={() => addToCart(product)}
+              onClick={() => addToCart(product, quantity)}
             >
               Add to cart
             </Button>
