@@ -1,12 +1,12 @@
 type User = {
   name: string;
   email: string;
-  password: string;
-  googleId: string;
+  password?: string;
+  googleId?: string;
   phone: string;
   pin_code: string;
   address: string;
-  role_as: string;
+  role_as?: string;
 };
 
 type Category = {
@@ -82,8 +82,8 @@ type CartItem = {
   product_id: string;
   product_quantity: number;
   user_id: string;
-  created_at: any;
-  updated_at: any;
+  created_at?: any;
+  updated_at?: any;
 };
 
 type OrderItem = {

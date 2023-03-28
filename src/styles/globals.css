@@ -2,19 +2,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-*{
+
+* {
     font-family: 'Roboto', sans-serif;
 }
 
-.form-label{
+.form-label {
     transition: 0.25s ease;
 }
-.form-input:not(:placeholder-shown) + .form-label,
-.form-input:focus + .form-label{
-    top:0;
-    left: 8px;  
+
+.form-input:not(:placeholder-shown)+.form-label,
+.form-input:focus+.form-label {
+    top: 0;
+    left: 8px;
     padding: 0 8px;
     background-color: white;
     font-size: 12px;
     color: blue;
+}
+
+.button+.button {
+    border-left: none;
 }

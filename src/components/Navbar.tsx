@@ -3,7 +3,6 @@ import IconButton from "./IconButton";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsHandbag } from "react-icons/bs";
 import { FiLogIn } from "react-icons/fi";
-import NavbarItem from "./NavbarItem";
 import Link from "next/link";
 import SearchWrapper from "./SearchWrapper";
 import { CiUser } from "react-icons/ci";
@@ -13,16 +12,12 @@ import { FaJediOrder } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import useClickOutside from "@/hooks/useClickOutside";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-
-  const handleClickOutside = () => setIsOpen(false);
-  useClickOutside(ref, handleClickOutside);
-
+  
   return (
     <div className="px-5 md:px-10 lg:px-20 flex flex-col">
       <div className="flex justify-between py-2 md:py-4">
@@ -87,5 +82,13 @@ export default function Navbar() {
         <SearchWrapper className="relative w-full h-searchWrapper md:hidden" />
       </div>
     </div>
+  );
+}
+
+export function NavbarItem({ title, href }: NavbarItem) {
+  return (
+    <Link className="ml-7" href={href}>
+      {title}
+    </Link>
   );
 }

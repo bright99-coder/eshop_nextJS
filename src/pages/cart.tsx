@@ -25,8 +25,10 @@ export default function Cart() {
       if (isMounted) {
         if (res.data.status === 200) {
           setCartItems(res.data.cart);
-          console.log(cartItems);
-          localStorage.setItem("shopping_cart", JSON.stringify(res.data.cart));
+          sessionStorage.setItem(
+            "shopping_cart",
+            JSON.stringify(res.data.cart)
+          );
         } else if (res.data.status === 401) {
           router.push("/login");
           swal("Warning", res.data.message, "error");
@@ -41,7 +43,7 @@ export default function Cart() {
 
   if (!user) {
     if (typeof window !== "undefined") {
-      swal("Warning", "Login to goto Cart Page", "warning");
+      swal(" ", "Login to goto Cart Page", "warning");
       router.push("/login");
       return null;
     }
@@ -101,7 +103,7 @@ export default function Cart() {
         ) : (
           <div className="flex flex-col items-center justify-center p-5">
             <FaShoppingCart className="text-6xl text-red-600" />
-            No Product Cart Shopping
+           <h4> No Product Cart Shopping</h4>
             <Link href="/" className="mt-3">
               <Button variant="outlined">BACK HOME</Button>
             </Link>

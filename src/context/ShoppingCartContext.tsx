@@ -41,14 +41,14 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   );
 
   const deleteWishListItem = (id: number) => {
+    setWishListItems(
+      wishListItems.filter(function (item: any) {
+        return item.id !== id;
+      })
+    ); //cheat
     axios.delete(`/api/delete-wishitem/${id}`).then((res) => {
       if (res.data.status === 200) {
-        swal("Success", res.data.message, "success");
-        setWishListItems(
-          wishListItems.filter(function (item: any) {
-            return item.id !== id;
-          })
-        );
+        console.log(res.data.message);
       } else if (res.data.status === 404) {
         swal("Error", res.data.message, "error");
       }
@@ -96,6 +96,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
       product_color_name: "",
       product_quantity: quantity,
     };
+
     axios.post(`/api/add-to-cart`, data).then((res) => {
       if (res.data.status === 201) {
         //Created - Data Inserted
@@ -146,20 +147,20 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   function updateCartQuantity(id: number, scope: string) {
     axios.put(`/api/cart-updatequantity/${id}/${scope}`).then((res) => {
       if (res.data.status === 200) {
-        swal("Success", res.data.message, "success");
+        console.log(res.data.message);
       }
     });
   }
 
   const deleteCartItem = (id: number) => {
+    setCartItems(
+      cartItems.filter(function (item: CartItem) {
+        return item.id !== id;
+      })
+    ); //cheat
     axios.delete(`/api/delete-cartitem/${id}`).then((res) => {
       if (res.data.status === 200) {
-        swal("Success", res.data.message, "success");
-        setCartItems(
-          cartItems.filter(function (item: CartItem) {
-            return item.id !== id;
-          })
-        );
+        console.log(res.data.message);
       } else if (res.data.status === 404) {
         swal("Error", res.data.message, "error");
       }

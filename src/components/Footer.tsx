@@ -1,5 +1,4 @@
 import React from "react";
-import FooterItem from "./FooterItem";
 import IconButton from "./IconButton";
 import {
   AiOutlineInstagram,
@@ -7,6 +6,7 @@ import {
   AiFillGithub,
 } from "react-icons/ai";
 import { BsFacebook } from "react-icons/bs";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -59,3 +59,14 @@ export default function Footer() {
     </div>
   );
 }
+
+const FooterItem = ({ title, href, className }: FooterItem) => {
+  return (
+    <Link
+      className={`text-[#AEB4BE] hover:text-white block my-2 ${className}`}
+      href={href}
+    >
+      {title}
+    </Link>
+  );
+};

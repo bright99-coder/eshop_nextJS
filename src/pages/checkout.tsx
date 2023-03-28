@@ -2,39 +2,31 @@ import Button from "@/components/Button";
 import TextField from "@/components/TextField";
 import Grid from "@/components/Grid";
 import axios from "axios";
-import React, { useState } from "react";
 import swal from "sweetalert";
 import { useRouter } from "next/router";
 import TextArea from "@/components/TextArea";
 import { useShoppingCart } from "@/context/ShoppingCartContext";
 import { TableRow } from "@/components/CartItem";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Checkout() {
   const { push } = useRouter();
   const { totalPrice } = useShoppingCart();
+  const { user, setUser } = useAuth();
 
-  const [input, setInput] = useState({
-    fullname: "",
-    email: "",
-    phone: "",
-    pincode: "",
-    address: "",
-  });
-
-  const handleInput = (e: any) => {
-    e.persist();
-    setInput({ ...input, [e.target.name]: e.target.value });
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const submitOrder = (e: any, payment_mode: any) => {
     e.preventDefault();
     var data = {
-      fullname: input.fullname,
-      email: input.email,
-      phone: input.phone,
-      pincode: input.pincode,
-      address: input.address,
+      fullname: user?.name,
+      email: user?.email,
+      phone: user?.phone,
+      pincode: user?.pin_code,
+      address: user?.address,
       payment_mode: payment_mode,
       payment_id: "",
     };
@@ -63,8 +55,8 @@ export default function Checkout() {
       <div className="col-span-12 lg:col-span-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <TextField
-            name="fullname"
-            value={input.fullname}
+            name="name"
+            value={user?.name}
             onChange={handleInput}
             variant="small"
             label="Full Name"
@@ -72,14 +64,14 @@ export default function Checkout() {
           />
           <TextField
             name="email"
-            value={input.email}
+            value={user?.email}
             onChange={handleInput}
             variant="small"
             label="Email"
             type="email"
           />
           <TextField
-            value={input.phone}
+            value={user?.phone}
             onChange={handleInput}
             name="phone"
             variant="small"
@@ -87,16 +79,16 @@ export default function Checkout() {
             type="text"
           />
           <TextField
-            value={input.pincode ?? " "}
+            value={user?.pin_code}
             onChange={handleInput}
-            name="pincode"
+            name="pin_code"
             variant="small"
             label="Zip/Pin Code"
             type="text"
           />
         </div>
         <TextArea
-          value={input.address ?? " "}
+          value={user?.address}
           onChange={handleInput}
           name="address"
           variant="small"

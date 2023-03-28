@@ -5,7 +5,7 @@ type StorageType = "localStorage" | "sessionStorage";
 function useLocalStorage<T>(
   key: string,
   initialValue: T,
-  storageType: StorageType = "localStorage"
+  storageType: StorageType = "sessionStorage"
 ) {
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {

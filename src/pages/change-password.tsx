@@ -1,36 +1,30 @@
 import React, { useState } from "react";
 import Button from "@/components/Button";
 import TextField from "@/components/TextField";
-import axios from "axios";
-import swal from "sweetalert";
 import HeaderLabel from "@/components/HeaderLabel";
+import { useAuth } from "@/context/AuthContext";
 
 export default function ChangePassword() {
+  const { changePassword } = useAuth();
   const [input, setInput] = useState({
     current_password: "",
     password: "",
     password_confirmation: "",
   });
-  const handleInput = (e: any) => {
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("current_password", input.current_password);
-    formData.append("password", input.password);
-    formData.append("password_confirmation", input.password_confirmation);
-    axios.post(`/api/change-password`, formData).then((res) => {
-      if (res.data.status === 200) {
-        swal("Success", res.data.message, "success");
-      } else if (res.data.status === 422) {
-        swal("All Fields are mandetory", "", "error");
-      } else if (res.data.status === 404) {
-        swal("Error", res.data.message, "error");
-      }
-    });
+    const data = {
+      current_password: input.current_password,
+      password: input.password,
+      password_confirmation: input.password_confirmation,
+    };
+    changePassword(data);
   };
+
   return (
     <form
       className="w-full md:w-2/4 px-5 md:px-10 lg:px-24 mx-auto my-10"

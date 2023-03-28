@@ -45,6 +45,10 @@ interface SectionProduct {
   data: Product[];
   className?: string;
 }
+interface SectionProductSkeleton {
+  title?: string;
+  className?: string;
+}
 interface TrendingCarousel {
   title: string;
   products: Product[];

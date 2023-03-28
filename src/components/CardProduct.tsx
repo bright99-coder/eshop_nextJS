@@ -1,14 +1,23 @@
+import { useCompare } from "@/context/CompareContext";
 import { useShoppingCart } from "@/context/ShoppingCartContext";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillEye } from "react-icons/ai";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdCompare } from "react-icons/md";
 import Button from "./Button";
+import ProductQuickView from "./ProductQuickView";
 
 export default function CardProduct({ data, compareIcon, ...props }: any) {
   const { addToCart, addToWishList } = useShoppingCart();
+  const { addCompare } = useCompare();
+  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
+
+  const handleQuickViewClose = () => {
+    setIsQuickViewOpen(false);
+  };
+
   return (
     <div
       {...props}
@@ -44,8 +53,17 @@ export default function CardProduct({ data, compareIcon, ...props }: any) {
             >
               <AiOutlineHeart />
             </button>
-            <button className="text-red-700 text-2xl hover:bg-primary p-2 rounded-full">
+            <button
+              className="text-red-700 text-2xl hover:bg-primary p-2 rounded-full hidden md:block"
+              onClick={() => setIsQuickViewOpen(true)}
+            >
               <AiFillEye />
+            </button>
+            <button
+              className="text-red-700 text-2xl hover:bg-primary p-2 rounded-full"
+              onClick={() => addCompare(data)}
+            >
+              <MdCompare />
             </button>
           </div>
           <div>
@@ -59,6 +77,13 @@ export default function CardProduct({ data, compareIcon, ...props }: any) {
           </div>
         </div>
       </div>
+
+      {/* modal */}
+      <ProductQuickView
+        product={data}
+        isOpen={isQuickViewOpen}
+        onRequestClose={handleQuickViewClose}
+      />
     </div>
   );
 }

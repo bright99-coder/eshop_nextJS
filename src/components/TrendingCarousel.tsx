@@ -3,14 +3,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider, { Settings } from "react-slick";
 import CardProduct from "./CardProduct";
-import ButtonLeft from "./ButtonLeft";
-import ButtonRight from "./ButtonRight";
 import { SlEnergy } from "react-icons/sl";
+import {
+  BsArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
 
-const TrendingCarousel: React.FC<TrendingCarousel> = ({
-  title,
-  products,
-}) => {
+const TrendingCarousel: React.FC<TrendingCarousel> = ({ title, products }) => {
   const mainImageRef = useRef<Slider>(null);
 
   useEffect(() => {
@@ -30,8 +29,8 @@ const TrendingCarousel: React.FC<TrendingCarousel> = ({
     autoplaySpeed: 5000,
     pauseOnHover: true,
     swipeToSlide: true,
-    nextArrow: <ButtonLeft />,
-    prevArrow: <ButtonRight />,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     responsive: [
       {
         breakpoint: 1024,
@@ -72,3 +71,25 @@ const TrendingCarousel: React.FC<TrendingCarousel> = ({
 };
 
 export default TrendingCarousel;
+
+export function NextArrow({ onClick }: any) {
+  return (
+    <div
+      className="absolute top-2/4 -translate-y-2/4 cursor-pointer -right-2 z-10 text-3xl"
+      onClick={onClick}
+    >
+      <BsFillArrowRightCircleFill />
+    </div>
+  );
+}
+
+export function PrevArrow({ onClick }: any) {
+  return (
+    <div
+      className="absolute top-2/4 -translate-y-2/4 cursor-pointer -left-2 z-10 text-3xl"
+      onClick={onClick}
+    >
+      <BsArrowLeftCircleFill />
+    </div>
+  );
+}

@@ -9,7 +9,7 @@ import swal from "sweetalert";
 import { useRouter } from "next/router";
 
 export default function Profile() {
-  const { user, setUser } = useAuth();
+  const { user, setUser, updateprofile } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -33,22 +33,15 @@ export default function Profile() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleUpdate = (e: any) => {
+  const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("name", user?.name ?? "");
-    formData.append("phone", user?.phone ?? "");
-    formData.append("pin_code", user?.pin_code ?? "");
-    formData.append("address", user?.address ?? "");
-    axios.post(`/api/profile`, formData).then((res) => {
-      if (res.data.status === 200) {
-        swal("Success", res.data.message, "success");
-      } else if (res.data.status === 422) {
-        swal("All Fields are mandetory", "", "error");
-      } else if (res.data.status === 404) {
-        swal("Error", res.data.message, "error");
-      }
-    });
+    const data = {
+      name: user?.name ?? "",
+      phone: user?.phone ?? "",
+      pin_code: user?.pin_code ?? "",
+      address: user?.address ?? "",
+    };
+    updateprofile(data);
   };
 
   if (!user) {

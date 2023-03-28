@@ -60,7 +60,9 @@ export default function CartItem({ item, ...props }: Props) {
             </Button>
           </div>
         </TableCell>
-        <TableCell>{item.product_quantity * item.product.selling_price}$</TableCell>
+        <TableCell>
+          {item.product_quantity * item.product.selling_price}$
+        </TableCell>
         <TableCell>
           <IconButton
             className="bg-transparent hover:bg-primary"

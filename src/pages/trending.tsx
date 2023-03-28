@@ -12,7 +12,9 @@ export default function trending({ data }: any) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <SectionProduct title="Trending Product" data={data} />
+      <main className="bg-bg">
+        <SectionProduct title="Trending Product" data={data} />
+      </main>
     </>
   );
 }

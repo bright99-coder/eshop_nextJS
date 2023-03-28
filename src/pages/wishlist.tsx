@@ -67,7 +67,7 @@ export default function Wishlist() {
         ) : (
           <div className="flex flex-col items-center justify-center p-5">
             <FaShoppingCart className="text-6xl text-red-600" />
-            No Product Cart Shopping
+            No Product WishList
             <Link href="/" className="mt-3">
               <Button variant="outlined">BACK HOME</Button>
             </Link>

@@ -1,9 +1,9 @@
-import SectionProduct from '@/components/SectionProduct';
-import { getFeatured } from '@/lib/getFeatured';
-import Head from 'next/head';
-import React from 'react'
+import SectionProduct from "@/components/SectionProduct";
+import { getFeatured } from "@/lib/getFeatured";
+import Head from "next/head";
+import React from "react";
 
-export default function featured({data}:any) {
+export default function featured({ data }: any) {
   return (
     <>
       <Head>
@@ -12,7 +12,9 @@ export default function featured({data}:any) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <SectionProduct title="Featured Product" data={data} />
+      <main className="bg-bg">
+        <SectionProduct title="Featured Product" data={data} />
+      </main>
     </>
   );
 }

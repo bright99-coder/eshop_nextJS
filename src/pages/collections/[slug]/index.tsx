@@ -4,6 +4,7 @@ import React from "react";
 import { getCategories } from "@/lib/getCategories";
 import { getProductCategory } from "@/lib/getProductCategory";
 import SectionProduct from "@/components/SectionProduct";
+import CompareModal from "@/components/CompareModal";
 interface Props {
   products: Product[];
 }
@@ -22,6 +23,7 @@ export default function index({ products }: Props) {
         </Link>{" "}
       </div>
       <SectionProduct data={products} />
+      <CompareModal />
     </div>
   );
 }
