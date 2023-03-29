@@ -13,7 +13,7 @@ export default function Button({
       return (
         <button
           {...props}
-          className={`py-2 px-4 text-sm font-normal text-white bg-[#1976d2] hover:bg-blue-700 inline-flex items-center justify-center uppercase rounded-sm cursor-pointer select-none ${className}`}
+          className={`py-2 px-4 text-sm font-normal text-white bg-[#1976d2] hover:bg-blue-700 inline-flex items-center justify-center uppercase rounded-[4px] cursor-pointer select-none ${className}`}
         >
           {children}
         </button>
@@ -22,7 +22,7 @@ export default function Button({
       return (
         <button
           {...props}
-          className={`button py-2 px-4 text-sm font-normal border border-blue-400 hover:border-blue-500 text-blue-500 hover:bg-blue-50 inline-flex items-center justify-center uppercase rounded-sm cursor-pointer select-none ${className}`}
+          className={`button py-2 px-4 text-sm font-normal border border-blue-400 hover:border-blue-500 text-blue-500 hover:bg-blue-50 inline-flex items-center justify-center uppercase rounded-[4px] cursor-pointer select-none ${className}`}
         >
           {children}
         </button>
@@ -33,7 +33,7 @@ export default function Button({
           <Link
             {...props}
             href={href}
-            className={`w-40 py-2 px-4 text-sm font-normal text-gray-600 outline-none hover:bg-blue-50  flex items-center flex-nowrap justify-start uppercase rounded-sm cursor-pointer select-none ${className}`}
+            className={`w-40 py-2 px-4 text-sm font-normal text-gray-600 outline-none hover:bg-blue-50  flex items-center flex-nowrap justify-start uppercase rounded-[4px] cursor-pointer select-none ${className}`}
           >
             <span className="mr-2">{icons}</span>
             <span> {children}</span>
@@ -43,7 +43,7 @@ export default function Button({
         return (
           <button
             {...props}
-            className={`w-40 py-2 px-4 text-sm font-normal text-gray-600 outline-none hover:bg-blue-50  flex items-center flex-nowrap justify-start uppercase rounded-sm cursor-pointer select-none ${className}`}
+            className={`w-40 py-2 px-4 text-sm font-normal text-gray-600 outline-none hover:bg-blue-50  flex items-center flex-nowrap justify-start uppercase rounded-[4px] cursor-pointer select-none ${className}`}
           >
             <span className="mr-2">{icons}</span>
             <span> {children}</span>

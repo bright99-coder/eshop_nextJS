@@ -12,7 +12,7 @@ import { useAuth } from "@/context/AuthContext";
 
 export default function Checkout() {
   const { push } = useRouter();
-  const { totalPrice } = useShoppingCart();
+  const { totalPrice, setCartItems } = useShoppingCart();
   const { user, setUser } = useAuth();
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,14 +33,19 @@ export default function Checkout() {
 
     axios.post(`/api/place-order`, data).then((res) => {
       if (res.data.status === 200) {
-        push("thank-you");
+        push("/orders");
         swal("Order Placed Successfully", res.data.message, "success");
+        setCartItems([]);
       } else if (res.data.status === 422) {
         swal("All fields are mandetory", "", "error");
       }
     });
   };
 
+  if (!user && typeof window !== "undefined") {
+    push("/login");
+    swal("Warning", "Login First", "warning");
+  }
   return (
     <Grid variant="second" className="gap-2 lg:gap-4">
       <div className="col-span-12">

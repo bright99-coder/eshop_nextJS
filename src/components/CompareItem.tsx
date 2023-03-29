@@ -21,7 +21,7 @@ export default function CompareItem({ product, ...props }: Props) {
         alt=""
         className=""
       />
-      <h4 className="w-[300px] px-4 text-center text-sm overflow-hidden text-ellipsis whitespace-nowrap">
+      <h4 className="px-4 w-full text-center text-sm overflow-hidden text-ellipsis whitespace-nowrap">
         {product.product_name}
       </h4>
       <IoMdRemoveCircleOutline

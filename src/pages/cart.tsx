@@ -15,7 +15,7 @@ import CartItem, {
 import { useAuth } from "@/context/AuthContext";
 
 export default function Cart() {
-  const router = useRouter();
+  const { push } = useRouter();
   const { user } = useAuth();
   const { totalPrice, cartItems, setCartItems } = useShoppingCart();
 
@@ -29,9 +29,6 @@ export default function Cart() {
             "shopping_cart",
             JSON.stringify(res.data.cart)
           );
-        } else if (res.data.status === 401) {
-          router.push("/login");
-          swal("Warning", res.data.message, "error");
         }
       }
     });
@@ -41,12 +38,9 @@ export default function Cart() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!user) {
-    if (typeof window !== "undefined") {
-      swal(" ", "Login to goto Cart Page", "warning");
-      router.push("/login");
-      return null;
-    }
+  if (!user && typeof window !== "undefined") {
+    push("/login");
+    swal("Warning", "Login First", "warning");
   }
   return (
     <>
@@ -103,7 +97,7 @@ export default function Cart() {
         ) : (
           <div className="flex flex-col items-center justify-center p-5">
             <FaShoppingCart className="text-6xl text-red-600" />
-           <h4> No Product Cart Shopping</h4>
+            <h4> No Product Cart Shopping</h4>
             <Link href="/" className="mt-3">
               <Button variant="outlined">BACK HOME</Button>
             </Link>

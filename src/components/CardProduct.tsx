@@ -32,7 +32,7 @@ export default function CardProduct({ data, compareIcon, ...props }: any) {
           className="w-full h-auto"
         />
       </Link>
-      <div className="p-4">
+      <div className="px-4 py-2">
         <div>
           <Link
             href="/"
@@ -40,12 +40,12 @@ export default function CardProduct({ data, compareIcon, ...props }: any) {
           >
             {data.product_name}
           </Link>
-          <div className="flex font-bold">
+          <div className="flex font-bold mt-2">
             <span className="text-red-700">{data.selling_price}$</span>
             <del className="text-gray-500 ml-4">{data.original_price}$</del>
           </div>
         </div>
-        <div className="flex justify-between mt-5">
+        <div className="flex justify-between mt-2">
           <div className="flex ">
             <button
               className="text-red-700 text-2xl hover:bg-primary p-2 rounded-full"
@@ -59,20 +59,20 @@ export default function CardProduct({ data, compareIcon, ...props }: any) {
             >
               <AiFillEye />
             </button>
-            <button
-              className="text-red-700 text-2xl hover:bg-primary p-2 rounded-full"
+           {compareIcon && <button
+              className="text-gray-700 text-2xl hover:bg-primary p-2 rounded-full hidden lg:block"
               onClick={() => addCompare(data)}
             >
               <MdCompare />
-            </button>
+            </button>} 
           </div>
           <div>
             <Button
               variant="outlined"
-              className="px-7 py-2"
+              className="px-2 py-[2px]"
               onClick={() => addToCart(data, 1)}
             >
-              <MdAdd className="text-blue-700" />
+              <MdAdd className="text-blue-700 text-2xl" />
             </Button>
           </div>
         </div>

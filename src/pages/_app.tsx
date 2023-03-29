@@ -35,12 +35,12 @@ export default function App({ Component, pageProps }: AppProps) {
         <div className="h-navbar w-full sticky top-0 z-20 bg-white shadow">
           <Navbar />
         </div>
-        <div className="h-content">
+        <div className="h-mobile md:h-content">
           <Component {...pageProps} />
           <Footer />
-        </div>
         <div className="fixed w-full bottom-0 md:hidden z-20">
           <NavMobile />
+        </div>
         </div>
       </div>
     </AppContext>

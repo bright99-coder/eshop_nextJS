@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 
 export default function Profile() {
   const { user, setUser, updateprofile } = useAuth();
-  const router = useRouter();
+  const { push } = useRouter();
 
   useEffect(() => {
     let isMounted = true;
@@ -44,12 +44,8 @@ export default function Profile() {
     updateprofile(data);
   };
 
-  if (!user) {
-    if (typeof window !== "undefined") {
-      swal("Warning", "Login to goto Profile Page", "warning");
-      router.push("/login");
-      return null;
-    }
+  if (!user && typeof window !== "undefined") {
+    push("/login");
   }
   return (
     <form

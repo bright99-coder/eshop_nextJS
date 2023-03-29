@@ -10,7 +10,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import { FaShoppingCart } from "react-icons/fa";
+import { BsBagHeart } from "react-icons/bs";
 import swal from "sweetalert";
 
 export default function Wishlist() {
@@ -26,10 +26,7 @@ export default function Wishlist() {
         if (res.data.status === 200) {
           setWishListItems(res.data.wishlists);
           console.log(res.data.wishlists);
-        } else if (res.data.status === 401) {
-          push("/login");
-          swal("Warning", res.data.message, "error");
-        }
+        }  
       }
     });
     return () => {
@@ -37,12 +34,9 @@ export default function Wishlist() {
     };
   }, []);
 
-  if (!user) {
-    if (typeof window !== "undefined") {
-      swal("Warning", "Login to goto WishList Page", "warning");
-      push("/login");
-      return null;
-    }
+  if (!user && typeof window !== "undefined") {
+    push("/login");
+    swal("Warning", "Login First", "warning");
   }
   return (
     <div>
@@ -66,7 +60,7 @@ export default function Wishlist() {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center p-5">
-            <FaShoppingCart className="text-6xl text-red-600" />
+            <BsBagHeart className="text-6xl text-red-600" />
             No Product WishList
             <Link href="/" className="mt-3">
               <Button variant="outlined">BACK HOME</Button>

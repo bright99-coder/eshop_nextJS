@@ -1,5 +1,4 @@
 import React from "react";
-import IconButton from "./IconButton";
 import {
   AiOutlineInstagram,
   AiOutlineGoogle,
@@ -42,18 +41,18 @@ export default function Footer() {
         <FooterItem title="Email: bright99.dev@gmail.com" href="/" />
         <FooterItem title="Phone: 0354868289" href="/" />
         <div className="flex">
-          <IconButton className="bg-gray-600 text-white">
+          <button className="text-white p-3 rounded-full bg-gray-600  mr-2">
             <BsFacebook />
-          </IconButton>
-          <IconButton className="bg-gray-600 text-white">
+          </button>
+          <button className="text-white p-3 rounded-full bg-gray-600  mr-2">
             <AiOutlineInstagram />
-          </IconButton>
-          <IconButton className="bg-gray-600 text-white">
+          </button>
+          <button className="text-white p-3 rounded-full bg-gray-600  mr-2">
             <AiOutlineGoogle />
-          </IconButton>
-          <IconButton className="bg-gray-600 text-white">
+          </button>
+          <button className="text-white p-3 rounded-full bg-gray-600  mr-2">
             <AiFillGithub />
-          </IconButton>
+          </button>
         </div>
       </div>
     </div>

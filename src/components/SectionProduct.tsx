@@ -6,6 +6,7 @@ import Grid from "./Grid";
 const SectionProduct: React.FC<SectionProduct> = ({
   title,
   data,
+  compareIcon,
   className,
 }) => {
   return (
@@ -19,7 +20,7 @@ const SectionProduct: React.FC<SectionProduct> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
         {data.map((item, index) => (
           <div key={index}>
-            <CardProduct data={item} />
+            <CardProduct data={item} compareIcon={compareIcon}/>
           </div>
         ))}
       </div>

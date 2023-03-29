@@ -2,20 +2,62 @@ import Button from "@/components/Button";
 import TextField from "@/components/TextField";
 import IconButton from "@/components/IconButton";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { TbLockSquareRoundedFilled } from "react-icons/tb";
 import { useAuth } from "@/context/AuthContext";
+import axios from "axios";
+import swal from "sweetalert";
+import { useRouter } from "next/router";
 
 export default function Login() {
-  const { login } = useAuth();
+  const { user, setUser } = useAuth();
+  const { push } = useRouter();
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    const email = e.target.username.value;
-    const password = e.target.password.value;
-    login(email, password);
+  const [input, setInput] = useState({
+    email: "",
+    password: "",
+    errors: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = {
+      email: input.email,
+      password: input.password,
+    };
+
+    axios.get("/sanctum/csrf-cookie").then((response) => {
+      axios.post(`api/login`, data).then((res) => {
+        if (res.data.status === 200) {
+          sessionStorage.setItem("auth_token", res.data.token);
+          sessionStorage.setItem("user", res.data.username);
+          setUser(res.data.username);
+          swal("Success", res.data.message, "success");
+          push("/");
+        } else if (res.data.status === 401) {
+          swal("Warning", res.data.message, "warning");
+        } else {
+          setInput({
+            ...input,
+            errors: res.data.validation_errors,
+          });
+        }
+      });
+    });
+  };
+  if (user) {
+    push("/");
+  }
   return (
     <form
       onSubmit={handleSubmit}
@@ -28,22 +70,26 @@ export default function Login() {
         <h4 className="text-2xl">Sign in</h4>
       </div>
       <TextField
-        name="username"
-        required
+        name="email"
         variant="large"
         label="Email Adress *"
         type="email"
         autoFocus
+        onChange={handleInput}
+        value={input.email}
+        helperText={input.errors.email}
       />
       <TextField
         name="password"
-        required
         variant="large"
         label="Password *"
         type="password"
-        className="my-4"
+        className="mt-4"
+        onChange={handleInput}
+        value={input.password}
+        helperText={input.errors.password}
       />
-      <Button className="w-full" type="submit" variant="contained">
+      <Button className="w-full mt-4" type="submit" variant="contained">
         Sign In
       </Button>
       <Button className="my-4 w-full" variant="outlined">

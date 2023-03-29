@@ -11,6 +11,9 @@ type CompareContext = {
   setCompareItems: React.Dispatch<React.SetStateAction<Product[]>>;
   addCompare: (product: Product) => void;
   removeCompare: (id: number | string) => void;
+  removeAll: () => void;
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const CompareContext = createContext({} as CompareContext);
@@ -20,6 +23,7 @@ export function useCompare() {
 }
 export function CompareProvider({ children }: CompareContextProps) {
   const [compareItems, setCompareItems] = useState<Product[]>([]);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const addCompare = (product: Product) => {
     if (compareItems.length <= 2) {
@@ -34,6 +38,9 @@ export function CompareProvider({ children }: CompareContextProps) {
       return currItems.filter((item) => item.id !== id);
     });
   }
+  const removeAll = () => {
+    setCompareItems([]);
+  };
 
   return (
     <CompareContext.Provider
@@ -42,6 +49,9 @@ export function CompareProvider({ children }: CompareContextProps) {
         setCompareItems,
         addCompare,
         removeCompare,
+        removeAll,
+        openModal,
+        setOpenModal,
       }}
     >
       {children}

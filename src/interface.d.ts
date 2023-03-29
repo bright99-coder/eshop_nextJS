@@ -11,6 +11,7 @@ interface IconButton {
   children: ReactNode;
   className?: string;
   href?: string;
+  tooltip?: string;
   [key: string]: any;
 }
 
@@ -24,6 +25,7 @@ interface Grid {
 interface TextField {
   variant: "small" | "large";
   label: string;
+  helperText?: string;
   className?: string;
   type: string;
   [key: string]: any;
@@ -44,6 +46,7 @@ interface SectionProduct {
   title?: string;
   data: Product[];
   className?: string;
+  compareIcon?: any;
 }
 interface SectionProductSkeleton {
   title?: string;

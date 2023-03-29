@@ -14,6 +14,7 @@ module.exports = {
       height: {
         navbar: "112px",
         content: "calc(100vh - 112px)",
+        mobile: "calc(100vh - 112px - 64px)",
         searchWrapper: "40px",
       },
       colors: {

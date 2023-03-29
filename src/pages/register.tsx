@@ -5,18 +5,27 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { TbLockSquareRoundedFilled } from "react-icons/tb";
 import { useAuth } from "@/context/AuthContext";
+import axios from "axios";
+import swal from "sweetalert";
+import { useRouter } from "next/router";
 
 export default function Register() {
-  const { register } = useAuth();
-  const [registerInput, setRegister] = useState({
+  const { setUser } = useAuth();
+  const { push } = useRouter();
+  const [input, setInput] = useState({
     name: "",
     email: "",
     password: "",
+    errors: {
+      name: "",
+      email: "",
+      password: "",
+    },
   });
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRegister({
-      ...registerInput,
+    setInput({
+      ...input,
       [e.target.name]: e.target.value,
     });
   };
@@ -24,11 +33,26 @@ export default function Register() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = {
-      name: registerInput.name,
-      email: registerInput.email,
-      password: registerInput.password,
+      name: input.name,
+      email: input.email,
+      password: input.password,
     };
-    register(data);
+    axios.get("/sanctum/csrf-cookie").then((response) => {
+      axios.post(`/api/register`, data).then((res) => {
+        if (res.data.status === 200) {
+          sessionStorage.setItem("auth_token", res.data.token);
+          sessionStorage.setItem("user", res.data.username);
+          setUser(res.data.username);
+          swal("Success", res.data.message, "success");
+          push("/profile");
+        } else {
+          setInput({
+            ...input,
+            errors: res.data.validation_errors,
+          });
+        }
+      });
+    });
   };
   return (
     <form
@@ -43,30 +67,33 @@ export default function Register() {
       </div>
       <TextField
         onChange={handleInput}
-        value={registerInput.name}
+        value={input.name}
         name="name"
         variant="large"
         label="Full Name *"
         type="text"
         autoFocus
+        helperText={input.errors.name}
       />
       <TextField
         onChange={handleInput}
-        value={registerInput.email}
+        value={input.email}
         name="email"
         className="mt-4"
         variant="large"
         label="Email Address *"
         type="text"
+        helperText={input.errors.email}
       />
       <TextField
         onChange={handleInput}
-        value={registerInput.password}
+        value={input.password}
         name="password"
         className="mt-4"
         variant="large"
         label="Password *"
         type="password"
+        helperText={input.errors.password}
       />
       <Button type="submit" className="mt-4 w-full" variant="contained">
         Sign up
