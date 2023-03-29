@@ -12,12 +12,13 @@ import { FaJediOrder } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  
+
   return (
     <div className="px-5 md:px-10 lg:px-20 flex flex-col">
       <div className="flex justify-between py-2 md:py-4">
@@ -85,9 +86,16 @@ export default function Navbar() {
   );
 }
 
-export function NavbarItem({ title, href }: NavbarItem) {
+function NavbarItem({ title, href }: NavbarItem) {
+  const router = useRouter();
+  const isActive = router.pathname === href;
   return (
-    <Link className="ml-7" href={href}>
+    <Link
+      className={`ml-7 border-b-2 border-transparent hover:border-blue-500 ${
+        isActive ? "text-blue-500" : ""
+      }`}
+      href={href}
+    >
       {title}
     </Link>
   );

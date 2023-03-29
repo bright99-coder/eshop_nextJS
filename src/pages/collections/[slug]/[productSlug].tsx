@@ -2,12 +2,10 @@ import Button from "@/components/Button";
 import { GetStaticPaths, GetStaticPropsContext } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getCategories } from "@/lib/getCategories";
 import SectionProduct from "@/components/SectionProduct";
 import { useShoppingCart } from "@/context/ShoppingCartContext";
-import axios from "axios";
-import swal from "sweetalert";
 
 export default function ProductDetail({
   product,
@@ -30,7 +28,7 @@ export default function ProductDetail({
 
   return (
     <div>
-      <div className="min-h-[48px] bg-primary px-5 md:px-10 lg:px-20 lg:flex items-center">
+      <div className="min-h-[48px] bg-primary px-5 md:px-10 lg:px-20 flex items-center">
         <Link className="text-blue-500 underline" href="/collections">
           Collections
         </Link>{" "}

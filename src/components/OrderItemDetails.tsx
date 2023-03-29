@@ -4,7 +4,7 @@ import React from "react";
 export const Item = ({ title, className, children }: any) => {
   return (
     <div className={`py-1 flex text-sm items-center ${className}`}>
-      {title && <strong className="mr-2">{title}</strong>}
+      {title && <strong className="w-28">{title}</strong>}
       {children}
     </div>
   );

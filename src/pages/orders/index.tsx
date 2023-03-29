@@ -31,12 +31,9 @@ export default function Orders() {
     };
   }, [setOrderItems]);
 
-  if (!user) {
-    if (typeof window !== "undefined") {
+  if (!user && typeof window !== "undefined") {
       swal("Warning", "Login to Order Page", "warning");
       router.push("/login");
-      return null;
-    }
   }
   return (
     <Grid variant="primary">

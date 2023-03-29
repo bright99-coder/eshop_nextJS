@@ -5,7 +5,6 @@ import Navbar from "@/components/Navbar";
 import NavMobile from "@/components/NavMobile";
 import { AppContext } from "@/context/AppContext";
 import "@/styles/globals.css";
-
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_DOMAIN;
 axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.headers.post["Accept"] = "application/json";
@@ -38,9 +37,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <div className="h-mobile md:h-content">
           <Component {...pageProps} />
           <Footer />
-        <div className="fixed w-full bottom-0 md:hidden z-20">
-          <NavMobile />
-        </div>
+          <div className="fixed w-full bottom-0 md:hidden z-20">
+            <NavMobile />
+          </div>
         </div>
       </div>
     </AppContext>

@@ -1,9 +1,9 @@
 import SectionProduct from "@/components/SectionProduct";
 import { getTrending } from "@/lib/getTrending";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 
-export default function trending({ data }: any) {
+export default function Trending({ data }: any) {
   return (
     <>
       <Head>
