@@ -9,11 +9,19 @@ import { useShoppingCart } from "@/context/ShoppingCartContext";
 import { TableRow } from "@/components/CartItem";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
+import { useState } from "react";
 
 export default function Checkout() {
   const { push } = useRouter();
   const { totalPrice, setCartItems } = useShoppingCart();
   const { user, setUser } = useAuth();
+  const [error, setError] = useState({
+    fullname: "",
+    email: "",
+    phone: "",
+    pincode: "",
+    address: "",
+  });
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -37,7 +45,7 @@ export default function Checkout() {
         swal("Order Placed Successfully", res.data.message, "success");
         setCartItems([]);
       } else if (res.data.status === 422) {
-        swal("All fields are mandetory", "", "error");
+        setError(res.data.errors);
       }
     });
   };
@@ -66,6 +74,7 @@ export default function Checkout() {
             variant="small"
             label="Full Name"
             type="text"
+            helperText={error.fullname}
           />
           <TextField
             name="email"
@@ -74,6 +83,7 @@ export default function Checkout() {
             variant="small"
             label="Email"
             type="email"
+            helperText={error.email}
           />
           <TextField
             value={user?.phone}
@@ -82,6 +92,7 @@ export default function Checkout() {
             variant="small"
             label="Phone Number"
             type="text"
+            helperText={error.phone}
           />
           <TextField
             value={user?.pin_code}
@@ -90,6 +101,7 @@ export default function Checkout() {
             variant="small"
             label="Zip/Pin Code"
             type="text"
+            helperText={error.pincode}
           />
         </div>
         <TextArea
@@ -99,6 +111,7 @@ export default function Checkout() {
           variant="small"
           label="Address"
           className="mt-4"
+          helperText={error.address}
         />
       </div>
       <div className="col-span-12 lg:col-span-4">

@@ -35,6 +35,7 @@ interface TextArea {
   variant: "small" | "large";
   label: string;
   className?: string;
+  helperText?:any;
   [key: string]: any;
 }
 

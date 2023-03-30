@@ -17,7 +17,7 @@ import { useRouter } from "next/router";
 export default function Navbar({ className }: any) {
   const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef<any>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -47,9 +47,11 @@ export default function Navbar({ className }: any) {
           </IconButton>
           {user ? (
             <div className="relative">
-              <IconButton ref={ref} onClick={() => setIsOpen(!isOpen)}>
-                <CiUser />
-              </IconButton>
+              <div ref={ref} onClick={() => setIsOpen(!isOpen)}>
+                <IconButton>
+                  <CiUser />
+                </IconButton>
+              </div>
               {isOpen && (
                 <div className="bg-white rounded-md absolute top-full border border-gray-200 right-0 shadow mt-3 flex flex-col z-20">
                   <Button

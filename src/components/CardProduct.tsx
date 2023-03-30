@@ -35,7 +35,7 @@ export default function CardProduct({ data, compareIcon, ...props }: any) {
       <div className="px-4 py-2">
         <div>
           <Link
-            href="/"
+            href={`/collections/${data.category.slug}/${data.slug}`}
             className="block whitespace-nowrap overflow-hidden text-blue-700 text-ellipsis"
           >
             {data.product_name}

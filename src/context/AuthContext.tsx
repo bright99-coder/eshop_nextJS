@@ -1,7 +1,7 @@
 import useLocalStorage from "@/hooks/useLocalStorage";
 import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
 import { createContext, ReactNode, useContext } from "react";
 import swal from "sweetalert";
 
