@@ -7,7 +7,7 @@ export default function ComparePanel() {
   const { setOpenModal, compareItems, removeAll } = useCompare();
 
   return (
-    <div className="flex justify-center z-10">
+    <div className="flex justify-center z-10 shadow-md bg-orange-500">
       <div className="w-full max-w-5xl grid grid-cols-12 border border-gray-300 shadow-sm fixed bottom-0 bg-white">
         <div className="col-span-9 grid grid-cols-3">
           {compareItems.map((item) => (

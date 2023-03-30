@@ -12,7 +12,6 @@ import { useRouter } from "next/router";
 export default function Login() {
   const { user, setUser } = useAuth();
   const { push } = useRouter();
-
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -55,6 +54,7 @@ export default function Login() {
       });
     });
   };
+
   if (user) {
     push("/");
   }
@@ -89,11 +89,8 @@ export default function Login() {
         value={input.password}
         helperText={input.errors.password}
       />
-      <Button className="w-full mt-4" type="submit" variant="contained">
+      <Button className="w-full my-4" type="submit" variant="contained">
         Sign In
-      </Button>
-      <Button className="my-4 w-full" variant="outlined">
-        Login with google
       </Button>
       <Link className="text-end block text-blue-600 underline" href="/register">
         Do not have an account? Sign Up

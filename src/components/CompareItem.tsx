@@ -12,7 +12,8 @@ export default function CompareItem({ product, ...props }: Props) {
   return (
     <div
       {...props}
-      className="flex flex-col relative items-center shadow h-[130px]"
+      className="flex flex-col relative items-center shadow h-[130px] 
+      "
     >
       <Image
         src={`${process.env.NEXT_PUBLIC_DOMAIN}/${product.image}`}

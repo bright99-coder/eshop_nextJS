@@ -2,7 +2,7 @@ import Button from "@/components/Button";
 import { GetStaticPaths, GetStaticPropsContext } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { getCategories } from "@/lib/getCategories";
 import SectionProduct from "@/components/SectionProduct";
 import { useShoppingCart } from "@/context/ShoppingCartContext";

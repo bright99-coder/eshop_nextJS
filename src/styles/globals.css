@@ -7,6 +7,10 @@
     font-family: 'Roboto', sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .form-label {
     transition: 0.25s ease;
 }
@@ -24,6 +28,7 @@
 .button+.button {
     border-left: none;
 }
-.compare-items-modal+.compare-items-modal{
+
+.compare-items-modal+.compare-items-modal {
     border-left: 1px solid gray;
 }

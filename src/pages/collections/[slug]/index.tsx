@@ -23,9 +23,9 @@ export default function index({ products }: Props) {
           {products[0].category_name}
         </Link>{" "}
       </div>
-      <SectionProduct data={products} compareIcon/>
+      <SectionProduct data={products} compareIcon />
       <ComparePanel />
-      <CompareModal/>
+      <CompareModal />
     </div>
   );
 }

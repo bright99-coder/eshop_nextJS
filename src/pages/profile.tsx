@@ -69,7 +69,7 @@ export default function Profile() {
         <TextField
           value={user?.email}
           onChange={handleInput}
-          className="bg-gray-100 pointer-events-none"
+          className="select-none pointer-events-none bg-gray-50"
           name="email"
           variant="small"
           label="Email"
