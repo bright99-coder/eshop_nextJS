@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@/components/Button";
 import TextField from "@/components/TextField";
 import HeaderLabel from "@/components/HeaderLabel";
@@ -11,6 +11,11 @@ export default function ChangePassword() {
     password: "",
     password_confirmation: "",
   });
+
+  useEffect(() => {
+    document.title = "Change Password";
+  }, []);
+  
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };

@@ -7,8 +7,7 @@ import { AppContext } from "@/context/AppContext";
 import "@/styles/globals.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import "./../firebase/config"
-
+import "./../firebase/config";
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_DOMAIN;
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -51,7 +50,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <div className="h-navbar w-full fixed top-0 z-20 bg-white shadow">
           <Navbar />
         </div>
-        <div className="mt-[112px] h-mobile lg:h-full">
+        <div className="mt-[112px] mb-[64px] md:mb-0 lg:h-full">
           <Component {...pageProps} />
           <Footer />
           <div className="fixed w-full bottom-0 md:hidden z-20">
