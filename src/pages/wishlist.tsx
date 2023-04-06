@@ -21,6 +21,10 @@ export default function Wishlist() {
 
   useEffect(() => {
     let isMounted = true;
+    if (!user && typeof window !== "undefined") {
+      push("/login");
+      return;
+    }
     axios.get(`/api/wishlist`).then((res) => {
       if (isMounted) {
         if (res.data.status === 200) {
@@ -34,10 +38,6 @@ export default function Wishlist() {
     };
   }, []);
 
-  if (!user && typeof window !== "undefined") {
-    push("/login");
-    swal("Warning", "Login First", "warning");
-  }
   return (
     <>
       <Head>

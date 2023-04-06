@@ -53,7 +53,7 @@ export default function Checkout() {
 
   if (!user && typeof window !== "undefined") {
     push("/login");
-    swal("Warning", "Login First", "warning");
+    return;
   }
   return (
     <>

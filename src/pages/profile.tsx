@@ -14,6 +14,10 @@ export default function Profile() {
 
   useEffect(() => {
     let isMounted = true;
+    if (!user && typeof window !== "undefined") {
+      push("/login");
+      return;
+    }
     axios.get(`/api/profile`).then((res) => {
       if (isMounted) {
         if (res.status === 200) {
@@ -43,9 +47,6 @@ export default function Profile() {
     updateprofile(data);
   };
 
-  if (!user && typeof window !== "undefined") {
-    push("/login");
-  }
   return (
     <>
       <Head>

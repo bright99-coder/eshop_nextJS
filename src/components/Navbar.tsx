@@ -99,13 +99,9 @@ export default function Navbar({ className }: any) {
 }
 
 function NavbarItem({ title, href }: NavbarItem) {
-  const router = useRouter();
-  const isActive = router.pathname === href;
   return (
     <Link
-      className={`ml-7 border-b-2 border-transparent hover:border-blue-500 ${
-        isActive ? "text-blue-500" : ""
-      }`}
+      className={`ml-7 border-b-2 border-transparent hover:border-gray-300`}
       href={href}
     >
       {title}
