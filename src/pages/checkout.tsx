@@ -53,7 +53,6 @@ export default function Checkout() {
 
   if (!user && typeof window !== "undefined") {
     push("/login");
-    return;
   }
   return (
     <>

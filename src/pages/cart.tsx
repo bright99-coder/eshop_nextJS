@@ -22,10 +22,6 @@ export default function Cart() {
 
   useEffect(() => {
     let isMounted = true;
-    if (!user && typeof window !== "undefined") {
-      push("/login");
-      return;
-    }
     axios.get(`/api/cart`).then((res) => {
       if (isMounted) {
         if (res.data.status === 200) {
@@ -43,6 +39,9 @@ export default function Cart() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (!user && typeof window !== "undefined") {
+    push("/login");
+  }
   return (
     <>
       <Head>

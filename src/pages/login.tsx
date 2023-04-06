@@ -58,7 +58,6 @@ export default function Login() {
 
   if (user) {
     push("/");
-    return;
   }
   return (
     <>

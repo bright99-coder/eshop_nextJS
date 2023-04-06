@@ -12,7 +12,6 @@ import { FaJediOrder } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/router";
 
 export default function Navbar({ className }: any) {
   const { user, logout } = useAuth();
