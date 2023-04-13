@@ -34,7 +34,7 @@ export default function Navbar({ className }: any) {
     <div className={`px-5 md:px-10 lg:px-20 flex flex-col ${className}`}>
       <div className="flex justify-between py-2 md:py-4">
         <Link href="/" className="flex items-end text-2xl text-blue-600">
-          ECOMERCE
+          ESHOP
         </Link>
         <SearchWrapper className="hidden md:block" />
         <div className="flex">
